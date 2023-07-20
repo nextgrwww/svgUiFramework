@@ -41,7 +41,8 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
 
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
-        form1200.appendChild(foreignObject);
+        thisElement.closest("g").appendChild(foreignObject);
+        // form1200.appendChild(foreignObject);
 
         // Set the x, y, width, and height attributes for foreignObject same as thisElement
         console.log("thisElement: ", thisElement);
@@ -62,8 +63,14 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
 
         // If there is a transform attribute of CSS transform property set for thisElement, apply that as css transform to the foreignObject
         const transform = thisElement.getAttribute('transform');
+        const transform2 = thisElement.style.transform;
         if (transform) {
-          foreignObject.style.transform = transform;
+          // alert("Transform information for " + thisElement.getAttribute("element_id") + " found in attributes: " + transform); // debug alert
+          foreignObject.setAttribute("transform", transform);
+        }
+        else{
+          // alert("Transform information " + thisElement.getAttribute("element_id") + " found in CSS: " + transform2); // debug alert
+          foreignObject.style.transform = transform2;
         }
 
         // Create the tag with the same tagname mentioned in the "element" attribute of the elements and save in newFormElement variable
@@ -119,7 +126,8 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form992.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
-        form992.appendChild(foreignObject);
+        thisElement.closest("g").appendChild(foreignObject);
+        // form992.appendChild(foreignObject);
 
         // Set the x, y, width, and height attributes for foreignObject same as thisElement
         console.log("thisElement: ", thisElement);
@@ -197,7 +205,8 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form768.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
-        form768.appendChild(foreignObject);
+        thisElement.appendChild(foreignObject);
+        // form768.appendChild(foreignObject);
 
         // Set the x, y, width, and height attributes for foreignObject same as thisElement
         console.log("thisElement: ", thisElement);
@@ -274,7 +283,8 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form576.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
-        form576.appendChild(foreignObject);
+        thisElement.closest("g").appendChild(foreignObject);
+        // form576.appendChild(foreignObject);
 
         // Set the x, y, width, and height attributes for foreignObject same as thisElement
         console.log("thisElement: ", thisElement);
@@ -363,7 +373,8 @@ function validateNSubmit(formId, dynamic) {
   
   elements.forEach(thisElement => {
     const regex = new RegExp(thisElement.getAttribute('aria-regex'));
-    if (!regex.test(thisElement.value)) {
+    const regexString = thisElement.getAttribute('aria-regex');
+    if (regexString && regexString!='' && !regex.test(thisElement.value)) {
       const parentG = thisElement.closest('g');
       parentG.classList.add('invalid');
       formValid = false;

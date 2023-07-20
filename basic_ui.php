@@ -14,6 +14,7 @@
 	<?php include("testform_576.svg"); ?>
 	<script>
 		formToSvg("testform1200");
+		// validateNSubmit("testform1200");
 	</script>
 	<?php var_dump($_POST); ?>
 </body>
