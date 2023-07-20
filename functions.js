@@ -8,43 +8,6 @@ function formToSvg(formsvgid) {
 
   console.log(form1200, form992, form768, form576);
 
-  // Function to render the appropriate form based on the current resolution
-  function renderForm(currentResolution, form1200, form992, form768, form576) {
-    if (currentResolution >= 1200 && form1200) {
-      form1200.closest("svg").style.display = 'block';
-      form1200.closest("svg").style.maxWidth = '100%';
-      form1200.closest("svg").style.marginLeft = 'auto';
-      form1200.closest("svg").style.marginRight = 'auto'
-      form992.closest("svg").style.display = 'none';
-      form768.closest("svg").style.display = 'none';
-      form576.closest("svg").style.display = 'none';
-    } else if (currentResolution >= 992 && form992) {
-      form1200.closest("svg").style.display = 'none';
-      form992.closest("svg").style.display = 'block';
-      form992.closest("svg").style.maxWidth = '100%';
-      form992.closest("svg").style.marginLeft = 'auto';
-      form992.closest("svg").style.marginRight = 'auto'
-      form768.closest("svg").style.display = 'none';
-      form576.closest("svg").style.display = 'none';
-    } else if (currentResolution >= 768 && form768) {
-      form1200.closest("svg").style.display = 'none';
-      form992.closest("svg").style.display = 'none';
-      form768.closest("svg").style.display = 'block';
-      form768.closest("svg").style.maxWidth = '100%';
-      form768.closest("svg").style.marginLeft = 'auto';
-      form768.closest("svg").style.marginRight = 'auto'
-      form576.closest("svg").style.display = 'none';
-    } else if (form576) {
-      form1200.closest("svg").style.display = 'none';
-      form992.closest("svg").style.display = 'none';
-      form768.closest("svg").style.display = 'none';
-      form576.closest("svg").style.display = 'block';
-      form576.closest("svg").style.maxWidth = '100%';
-      form576.closest("svg").style.marginLeft = 'auto';
-      form576.closest("svg").style.marginRight = 'auto'
-    }
-  }
-
   // Initial render based on the current browser window width
   const currentResolution = window.innerWidth;
   renderForm(currentResolution, form1200, form992, form768, form576);
@@ -68,21 +31,34 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form576.querySelectorAll('foreignObject').forEach((element) => element.remove());
 
       // Hide form992, form768, form576
-      form992.style.display = 'none';
-      form768.style.display = 'none';
-      form576.style.display = 'none';
+      form992.closest("svg").style.display = 'none';
+      form768.closest("svg").style.display = 'none';
+      form576.closest("svg").style.display = 'none';
 
       // Select all children of form1200 with the "element" attribute set to inputs, select, textarea, label, button
-      form1200.querySelectorAll('[element="inputs"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+      console.log("form1200: ", form1200);
+      form1200.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
         form1200.appendChild(foreignObject);
 
         // Set the x, y, width, and height attributes for foreignObject same as thisElement
+        console.log("thisElement: ", thisElement);
+        
+        console.log("thisElement.x: " + thisElement.getAttribute("x"));
         foreignObject.setAttribute('x', thisElement.getAttribute('x'));
+        
+        console.log("thisElement.y: " + thisElement.getAttribute("y"));
         foreignObject.setAttribute('y', thisElement.getAttribute('y'));
-        foreignObject.setAttribute('width', thisElement.getAttribute('width'));
-        foreignObject.setAttribute('height', thisElement.getAttribute('height'));
+        
+        console.log("thisElement.width: " + thisElement.getAttribute("width"));
+        if(thisElement.getAttribute('width')) foreignObject.setAttribute('width', thisElement.getAttribute('width'));
+        else foreignObject.setAttribute('width', thisElement.getBoundingClientRect().width)
+        
+        console.log("thisElement.height: " + thisElement.getAttribute("height"));
+        if(thisElement.getAttribute('height')) foreignObject.setAttribute('height', thisElement.getAttribute('height'));
+        else foreignObject.setAttribute('height', thisElement.getBoundingClientRect().height);
 
         // If there is a transform attribute of CSS transform property set for thisElement, apply that as css transform to the foreignObject
         const transform = thisElement.getAttribute('transform');
@@ -95,6 +71,7 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
 
         // If there is an element_type attribute set for thisElement, set the type attribute of the newFormElement to that
         const elementType = thisElement.getAttribute('element_type');
+        
         if (elementType) {
           newFormElement.setAttribute('type', elementType);
         }
@@ -134,21 +111,32 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form576.querySelectorAll('foreignObject').forEach((element) => element.remove());
 
       // Hide form1200, form768, form576
-      form1200.style.display = 'none';
-      form768.style.display = 'none';
-      form576.style.display = 'none';
+      form1200.closest("svg").style.display = 'none';
+      form768.closest("svg").style.display = 'none';
+      form576.closest("svg").style.display = 'none';
 
       // Select all children of form992 with the "element" attribute set to inputs, select, textarea, label, button
-      form992.querySelectorAll('[element="inputs"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+      form992.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
         form992.appendChild(foreignObject);
 
         // Set the x, y, width, and height attributes for foreignObject same as thisElement
+        console.log("thisElement: ", thisElement);
+        
+        console.log("thisElement.x: " + thisElement.getAttribute("x"));
         foreignObject.setAttribute('x', thisElement.getAttribute('x'));
+        
+        console.log("thisElement.y: " + thisElement.getAttribute("y"));
         foreignObject.setAttribute('y', thisElement.getAttribute('y'));
-        foreignObject.setAttribute('width', thisElement.getAttribute('width'));
-        foreignObject.setAttribute('height', thisElement.getAttribute('height'));
+        
+        console.log("thisElement.width: " + thisElement.getAttribute("width"));
+        if(thisElement.getAttribute('width')) foreignObject.setAttribute('width', thisElement.getAttribute('width'));
+        else foreignObject.setAttribute('width', thisElement.getBoundingClientRect().width)
+        
+        console.log("thisElement.height: " + thisElement.getAttribute("height"));
+        if(thisElement.getAttribute('height')) foreignObject.setAttribute('height', thisElement.getAttribute('height'));
+        else foreignObject.setAttribute('height', thisElement.getBoundingClientRect().height);
 
         // If there is a transform attribute of CSS transform property set for thisElement, apply that as css transform to the foreignObject
         const transform = thisElement.getAttribute('transform');
@@ -201,21 +189,32 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form576.querySelectorAll('foreignObject').forEach((element) => element.remove());
 
       // Hide form1200, form992, form576
-      form1200.style.display = 'none';
-      form992.style.display = 'none';
-      form576.style.display = 'none';
+      form1200.closest("svg").style.display = 'none';
+      form992.closest("svg").style.display = 'none';
+      form576.closest("svg").style.display = 'none';
 
       // Select all children of form768 with the "element" attribute set to inputs, select, textarea, label, button
-      form768.querySelectorAll('[element="inputs"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+      form768.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
         form768.appendChild(foreignObject);
 
         // Set the x, y, width, and height attributes for foreignObject same as thisElement
+        console.log("thisElement: ", thisElement);
+        
+        console.log("thisElement.x: " + thisElement.getAttribute("x"));
         foreignObject.setAttribute('x', thisElement.getAttribute('x'));
+        
+        console.log("thisElement.y: " + thisElement.getAttribute("y"));
         foreignObject.setAttribute('y', thisElement.getAttribute('y'));
-        foreignObject.setAttribute('width', thisElement.getAttribute('width'));
-        foreignObject.setAttribute('height', thisElement.getAttribute('height'));
+        
+        console.log("thisElement.width: " + thisElement.getAttribute("width"));
+        if(thisElement.getAttribute('width')) foreignObject.setAttribute('width', thisElement.getAttribute('width'));
+        else foreignObject.setAttribute('width', thisElement.getBoundingClientRect().width)
+        
+        console.log("thisElement.height: " + thisElement.getAttribute("height"));
+        if(thisElement.getAttribute('height')) foreignObject.setAttribute('height', thisElement.getAttribute('height'));
+        else foreignObject.setAttribute('height', thisElement.getBoundingClientRect().height);
 
         // If there is a transform attribute of CSS transform property set for thisElement, apply that as css transform to the foreignObject
         const transform = thisElement.getAttribute('transform');
@@ -267,21 +266,32 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form768.querySelectorAll('foreignObject').forEach((element) => element.remove());
 
       // Hide form1200, form992, form768
-      form1200.style.display = 'none';
-      form992.style.display = 'none';
-      form768.style.display = 'none';
+      form1200.closest("svg").style.display = 'none';
+      form992.closest("svg").style.display = 'none';
+      form768.closest("svg").style.display = 'none';
 
       // Select all children of form576 with the "element" attribute set to inputs, select, textarea, label, button
-      form576.querySelectorAll('[element="inputs"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+      form576.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
         form576.appendChild(foreignObject);
 
         // Set the x, y, width, and height attributes for foreignObject same as thisElement
+        console.log("thisElement: ", thisElement);
+        
+        console.log("thisElement.x: " + thisElement.getAttribute("x"));
         foreignObject.setAttribute('x', thisElement.getAttribute('x'));
+        
+        console.log("thisElement.y: " + thisElement.getAttribute("y"));
         foreignObject.setAttribute('y', thisElement.getAttribute('y'));
-        foreignObject.setAttribute('width', thisElement.getAttribute('width'));
-        foreignObject.setAttribute('height', thisElement.getAttribute('height'));
+        
+        console.log("thisElement.width: " + thisElement.getAttribute("width"));
+        if(thisElement.getAttribute('width')) foreignObject.setAttribute('width', thisElement.getAttribute('width'));
+        else foreignObject.setAttribute('width', thisElement.getBoundingClientRect().width)
+        
+        console.log("thisElement.height: " + thisElement.getAttribute("height"));
+        if(thisElement.getAttribute('height')) foreignObject.setAttribute('height', thisElement.getAttribute('height'));
+        else foreignObject.setAttribute('height', thisElement.getBoundingClientRect().height);
 
         // If there is a transform attribute of CSS transform property set for thisElement, apply that as css transform to the foreignObject
         const transform = thisElement.getAttribute('transform');
@@ -349,7 +359,7 @@ function validateNSubmit(formId, dynamic) {
     svgForm = document.querySelector(`g[formsvgid="${formId}"][class="w576"]`);
   }
 
-  const elements = svgForm.querySelectorAll('[element="inputs"], [element="select"], [element="textarea"], [element="label"], [element="button"]');
+  const elements = svgForm.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]');
   
   elements.forEach(thisElement => {
     const regex = new RegExp(thisElement.getAttribute('aria-regex'));
