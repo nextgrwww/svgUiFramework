@@ -89,6 +89,8 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
           if (attr.name.startsWith('element_')) {
             // Get the attribute name without 'element_' prefix
             const attributeName = attr.name.slice(8);
+
+            alert("Setting attribute " + attributeName + " with value " + attr.value + " for " + newFormElement.outerHTML);
             // Add the attribute and value to the newFormElement
             newFormElement.setAttribute(attributeName, attr.value);
           }
@@ -99,10 +101,10 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
         newFormElement.style.height = '100%';
 
         // Set the id of the newFormElement to the elementId attribute value mentioned in thisElement
-        newFormElement.setAttribute('id', thisElement.getAttribute('elementId'));
+        newFormElement.setAttribute('id', thisElement.getAttribute('element_id'));
 
         // Set the name of newFormElement to the elementName attribute of thisElement
-        newFormElement.setAttribute('name', thisElement.getAttribute('elementName'));
+        newFormElement.setAttribute('name', thisElement.getAttribute('element_name'));
 
         // Remove all borders and outlines etc from newFormElement element
         newFormElement.style.border = 'none';
@@ -369,7 +371,8 @@ function validateNSubmit(formId, dynamic) {
     svgForm = document.querySelector(`g[formsvgid="${formId}"][class="w576"]`);
   }
 
-  const elements = svgForm.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]');
+  // const elements = svgForm.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]');
+  const elements = svgForm.querySelectorAll('input, select, textarea');
   
   elements.forEach(thisElement => {
     const regex = new RegExp(thisElement.getAttribute('aria-regex'));
@@ -391,23 +394,41 @@ function validateNSubmit(formId, dynamic) {
 
   const xhr = new XMLHttpRequest();
   xhr.open(svgForm.getAttribute('formsvgmethod'), svgForm.getAttribute('formsvgaction'), true);
-  xhr.onload = function () {
-    try {
-      const JSO = JSON.parse(xhr.responseText);
-      if (JSO.return_message) {
-        alert(JSO.return_message);
+  xhr.onreadystatechange = ()=>{
+    if(xhr.readyState==4 && xhr.status==200){    
+      try {
+        console.log(xhr.responseText);
+        const JSO = JSON.parse(xhr.responseText);
+        if (JSO.return_message) {
+          alert(JSO.return_message);
+        }
+        if (JSO.redirect) {
+          window.location.href = JSO.redirect;
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Unknown error occurred. Check console error messages for details');
       }
-      if (JSO.redirect) {
-        window.location.href = JSO.redirect;
-      }
-    } catch (error) {
-      console.error(error);
-      alert('Unknown error occurred. Check console error messages for details');
     }
-  };
+  }
+  // xhr.onload = function () {
+  //   try {
+  //     console.log(xhr.responseText);
+  //     const JSO = JSON.parse(xhr.responseText);
+  //     if (JSO.return_message) {
+  //       alert(JSO.return_message);
+  //     }
+  //     if (JSO.redirect) {
+  //       window.location.href = JSO.redirect;
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('Unknown error occurred. Check console error messages for details');
+  //   }
+  // };
   xhr.onerror = function () {
     console.error('AJAX request failed.');
-    alert('Unknown error occurred. Check console error messages for details');
+    alert('Could not process request. Unknown error occurred. Check console error messages for details');
   };
   xhr.send(formData);
 }
