@@ -1,32 +1,47 @@
 function formToSvg(formsvgid) {
+  console.log("formToSvg() function ran with formsvgid: " + formsvgid);
   // Select SVG group elements with specific attributes and store them in variables
-  const form1200 = document.querySelector(`svg[g=formsvgid][class=w1200]`);
-  const form992 = document.querySelector(`svg[g=formsvgid][class=w992]`);
-  const form768 = document.querySelector(`svg[g=formsvgid][class=w768]`);
-  const form576 = document.querySelector(`svg[g=formsvgid][class=w576]`);
+  const form1200 = document.querySelector(`g[formsvgid=${formsvgid}][class=w1200]`);
+  const form992 = document.querySelector(`g[formsvgid=${formsvgid}][class=w992]`);
+  const form768 = document.querySelector(`g[formsvgid=${formsvgid}][class=w768]`);
+  const form576 = document.querySelector(`g[formsvgid=${formsvgid}][class=w576]`);
+
+  console.log(form1200, form992, form768, form576);
 
   // Function to render the appropriate form based on the current resolution
   function renderForm(currentResolution, form1200, form992, form768, form576) {
     if (currentResolution >= 1200 && form1200) {
-      form1200.style.display = 'block';
-      form992.style.display = 'none';
-      form768.style.display = 'none';
-      form576.style.display = 'none';
+      form1200.closest("svg").style.display = 'block';
+      form1200.closest("svg").style.maxWidth = '100%';
+      form1200.closest("svg").style.marginLeft = 'auto';
+      form1200.closest("svg").style.marginRight = 'auto'
+      form992.closest("svg").style.display = 'none';
+      form768.closest("svg").style.display = 'none';
+      form576.closest("svg").style.display = 'none';
     } else if (currentResolution >= 992 && form992) {
-      form1200.style.display = 'none';
-      form992.style.display = 'block';
-      form768.style.display = 'none';
-      form576.style.display = 'none';
+      form1200.closest("svg").style.display = 'none';
+      form992.closest("svg").style.display = 'block';
+      form992.closest("svg").style.maxWidth = '100%';
+      form992.closest("svg").style.marginLeft = 'auto';
+      form992.closest("svg").style.marginRight = 'auto'
+      form768.closest("svg").style.display = 'none';
+      form576.closest("svg").style.display = 'none';
     } else if (currentResolution >= 768 && form768) {
-      form1200.style.display = 'none';
-      form992.style.display = 'none';
-      form768.style.display = 'block';
-      form576.style.display = 'none';
+      form1200.closest("svg").style.display = 'none';
+      form992.closest("svg").style.display = 'none';
+      form768.closest("svg").style.display = 'block';
+      form768.closest("svg").style.maxWidth = '100%';
+      form768.closest("svg").style.marginLeft = 'auto';
+      form768.closest("svg").style.marginRight = 'auto'
+      form576.closest("svg").style.display = 'none';
     } else if (form576) {
-      form1200.style.display = 'none';
-      form992.style.display = 'none';
-      form768.style.display = 'none';
-      form576.style.display = 'block';
+      form1200.closest("svg").style.display = 'none';
+      form992.closest("svg").style.display = 'none';
+      form768.closest("svg").style.display = 'none';
+      form576.closest("svg").style.display = 'block';
+      form576.closest("svg").style.maxWidth = '100%';
+      form576.closest("svg").style.marginLeft = 'auto';
+      form576.closest("svg").style.marginRight = 'auto'
     }
   }
 
