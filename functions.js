@@ -90,7 +90,7 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
             // Get the attribute name without 'element_' prefix
             const attributeName = attr.name.slice(8);
 
-            alert("Setting attribute " + attributeName + " with value " + attr.value + " for " + newFormElement.outerHTML);
+            // alert("Setting attribute " + attributeName + " with value " + attr.value + " for " + newFormElement.outerHTML); // debug alert
             // Add the attribute and value to the newFormElement
             newFormElement.setAttribute(attributeName, attr.value);
           }
@@ -113,7 +113,8 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
         // Put this newFormElement inside the foreignObject tag
         foreignObject.appendChild(newFormElement);
       });
-    } else if (currentResolution > 992) {
+    } 
+    else if (currentResolution > 992) {
       // Remove all foreignObject elements from form1200, form768, form576
       form1200.querySelectorAll('foreignObject').forEach((element) => element.remove());
       form768.querySelectorAll('foreignObject').forEach((element) => element.remove());
@@ -191,8 +192,10 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
         // Put this newFormElement inside the foreignObject tag
         foreignObject.appendChild(newFormElement);
       });
-
-    } else if (currentResolution > 768) {
+      // var submitButton = form992.querySelector("[element_type=submit]");
+      // if(submitButton) submitButton.setAttribute("onclick", "validateNSubmitThis(this)");
+    } 
+    else if (currentResolution > 768) {
       // Remove all foreignObject elements from form1200, form992, form576
       form1200.querySelectorAll('foreignObject').forEach((element) => element.remove());
       form992.querySelectorAll('foreignObject').forEach((element) => element.remove());
@@ -270,7 +273,10 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
         // Put this newFormElement inside the foreignObject tag
         foreignObject.appendChild(newFormElement);
       });
-    } else {
+      // var submitButton = form768.querySelector("[element_type=submit]");
+      // if(submitButton) submitButton.setAttribute("onclick", "validateNSubmitThis(this)");
+    } 
+    else {
       // Remove all foreignObject elements from form1200, form992, form768
       form1200.querySelectorAll('foreignObject').forEach((element) => element.remove());
       form992.querySelectorAll('foreignObject').forEach((element) => element.remove());
@@ -348,7 +354,10 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
         // Put this newFormElement inside the foreignObject tag
         foreignObject.appendChild(newFormElement);
       });
+      // var submitButton = form576.querySelector("[element_type=submit]");
+      // if(submitButton) submitButton.setAttribute("onclick", "validateNSubmitThis(this)");
     }
+    if(document.querySelector('[element_type=submit]')) document.querySelector('[element_type=submit]').setAttribute("onclick", "validateNSubmitThis(this)");
   } catch (error) {
     console.error('Error in SVG form construction:', error.message);
     alert('Your SVG form is not constructed according to the standards defined. Please check error log.');
@@ -363,11 +372,14 @@ function validateNSubmit(formId, dynamic) {
   let svgForm;
   if (currentResolution > 1200) {
     svgForm = document.querySelector(`g[formsvgid="${formId}"][class="w1200"]`);
-  } else if (currentResolution > 992) {
+  } 
+  else if (currentResolution > 992) {
     svgForm = document.querySelector(`g[formsvgid="${formId}"][class="w992"]`);
-  } else if (currentResolution > 768) {
+  } 
+  else if (currentResolution > 768) {
     svgForm = document.querySelector(`g[formsvgid="${formId}"][class="w768"]`);
-  } else {
+  } 
+  else {
     svgForm = document.querySelector(`g[formsvgid="${formId}"][class="w576"]`);
   }
 
@@ -431,4 +443,10 @@ function validateNSubmit(formId, dynamic) {
     alert('Could not process request. Unknown error occurred. Check console error messages for details');
   };
   xhr.send(formData);
+}
+
+function validateNSubmitThis(target){
+  console.log(target);
+  var formId = target.closest('svg').querySelector('[formsvgid]').getAttribute('formsvgid');
+  validateNSubmit(formId);
 }

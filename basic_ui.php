@@ -4,6 +4,11 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Simple SVG Form</title>
+	<style>
+		[element_type=submit]{
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body>
 	<?php // include("form_1200_plain.svg"); ?>
