@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Simple SVG Form</title>
 	<style>
-		[element_type=submit]{
+		[element_type=submit], [element_type=reset]{
 			cursor: pointer;
 		}
 	</style>

@@ -192,8 +192,6 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
         // Put this newFormElement inside the foreignObject tag
         foreignObject.appendChild(newFormElement);
       });
-      // var submitButton = form992.querySelector("[element_type=submit]");
-      // if(submitButton) submitButton.setAttribute("onclick", "validateNSubmitThis(this)");
     } 
     else if (currentResolution > 768) {
       // Remove all foreignObject elements from form1200, form992, form576
@@ -273,8 +271,6 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
         // Put this newFormElement inside the foreignObject tag
         foreignObject.appendChild(newFormElement);
       });
-      // var submitButton = form768.querySelector("[element_type=submit]");
-      // if(submitButton) submitButton.setAttribute("onclick", "validateNSubmitThis(this)");
     } 
     else {
       // Remove all foreignObject elements from form1200, form992, form768
@@ -354,10 +350,9 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
         // Put this newFormElement inside the foreignObject tag
         foreignObject.appendChild(newFormElement);
       });
-      // var submitButton = form576.querySelector("[element_type=submit]");
-      // if(submitButton) submitButton.setAttribute("onclick", "validateNSubmitThis(this)");
     }
     if(document.querySelector('[element_type=submit]')) document.querySelector('[element_type=submit]').setAttribute("onclick", "validateNSubmitThis(this)");
+    if(document.querySelector('[element_type=reset')) document.querySelector('[element_type=reset').setAttribute("onclick", "clearThis(this)");
   } catch (error) {
     console.error('Error in SVG form construction:', error.message);
     alert('Your SVG form is not constructed according to the standards defined. Please check error log.');
@@ -423,21 +418,6 @@ function validateNSubmit(formId, dynamic) {
       }
     }
   }
-  // xhr.onload = function () {
-  //   try {
-  //     console.log(xhr.responseText);
-  //     const JSO = JSON.parse(xhr.responseText);
-  //     if (JSO.return_message) {
-  //       alert(JSO.return_message);
-  //     }
-  //     if (JSO.redirect) {
-  //       window.location.href = JSO.redirect;
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert('Unknown error occurred. Check console error messages for details');
-  //   }
-  // };
   xhr.onerror = function () {
     console.error('AJAX request failed.');
     alert('Could not process request. Unknown error occurred. Check console error messages for details');
@@ -449,4 +429,42 @@ function validateNSubmitThis(target){
   console.log(target);
   var formId = target.closest('svg').querySelector('[formsvgid]').getAttribute('formsvgid');
   validateNSubmit(formId);
+}
+
+function clearForm(formsvgid) {
+  // Select element with attribute formsvgid set to the 'formsvgid' parameter passed to the function and store in formElement variable
+  const formElement = document.querySelector(`[formsvgid="${formsvgid}"]`);
+
+  // Select all input, textarea and select tags inside formElement using .querySelectorAll() method
+  const formInputs = formElement.querySelectorAll('input, textarea, select');
+
+  // Reset all the above selected elements to their default values
+  formInputs.forEach(inputElement => {
+    switch (inputElement.tagName.toLowerCase()) {
+      case 'input':
+        switch (inputElement.type.toLowerCase()) {
+          case 'radio':
+          case 'checkbox':
+            inputElement.checked = false;
+            break;
+          default:
+            inputElement.value = '';
+            break;
+        }
+        break;
+      case 'textarea':
+        inputElement.value = '';
+        break;
+      case 'select':
+        inputElement.selectedIndex = 0;
+        break;
+    }
+  });
+}
+
+
+function clearThis(target){
+  console.log(target);
+  var formId = target.closest('svg').querySelector('[formsvgid]').getAttribute('formsvgid');
+  clearForm(formId);
 }

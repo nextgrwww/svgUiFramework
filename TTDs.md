@@ -7,6 +7,7 @@
 * ~~Debug input elements not showing up~~
 * ~~Add conditions to handle the possibility of a width or height form missing from the function of page~~
 * ~~Write a function to checkNSubmit() to validate the form, gather the values and then submit~~
-* Check validation logic
-* Add event listener to trigger validateNSubmit() function when an element with element_type set to submit
-* Add event listener to trigger clearForm() function when an element with element_type set to reset
+* ~~Check validation logic~~
+* ~~Add functionality to trigger validateNSubmit() function when an element with element_type set to submit~~
+* Add functionality to trigger clearForm() function when an element with element_type set to reset
+* Fix handling of resize

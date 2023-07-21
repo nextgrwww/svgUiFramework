@@ -97,6 +97,7 @@
            ry="0.25999999"
            element="input"
            element_type="text"
+           element_aria-regex="[a-zA-Z ]{2,50}"
            element_name="firstname"
            element_id="firstname" />
       </g>
