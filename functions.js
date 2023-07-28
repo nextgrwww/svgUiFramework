@@ -479,15 +479,20 @@ function formElementHover(){
     const lastItemWithId = elementsWithId[elementsWithId.length-1];
     const normalElement = list.querySelector("[pseudo_selector=normal");
     const pseudoElement = list.querySelector(`[pseudo_selector=hover]`);
+    console.log("normalElement", normalElement);
+    console.log("pseudoElement", pseudoElement);
+    console.log("lastItemWithId", lastItemWithId);
     if(normalElement && pseudoElement){
       list.addEventListener("mouseenter", () => {
+        console.log("You just hovered over", list);
         list.insertBefore(pseudoElement, lastItemWithId);
         list.insertBefore(normalElement, pseudoElement);
       });
 
       list.addEventListener("mouseleave", () => {
+        console.log("You just hovered out", list);
         list.insertBefore(normalElement, lastItemWithId);
-        list.insertBefore(pseudoElement, lastItemWithId);
+        list.insertBefore(pseudoElement, normalElement);
       });
     }
     else{
