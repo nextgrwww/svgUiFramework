@@ -127,7 +127,7 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form576.closest("svg").style.display = 'none';
 
       // Select all children of form992 with the "element" attribute set to inputs, select, textarea, label, button
-      form992.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+      form992.querySelectorAll(`[element='input'][pseudo_selector='normal'], [element='input']:not([pseudo_selector]), [element='select'][pseudo_selector='normal'], [element='select']:not([pseudo_selector]), [element='textarea'][pseudo_selector='normal'], [element='textarea']:not([pseudo_selector]), [element='label'][pseudo_selector='normal'], [element='label']:not([pseudo_selector]), [element='button'][pseudo_selector='normal'], [element='button']:not([pseudo_selector])`).forEach(thisElement => {
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
         thisElement.closest("g").appendChild(foreignObject);
@@ -206,7 +206,7 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form576.closest("svg").style.display = 'none';
 
       // Select all children of form768 with the "element" attribute set to inputs, select, textarea, label, button
-      form768.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+      form768.querySelectorAll(`[element='input'][pseudo_selector='normal'], [element='input']:not([pseudo_selector]), [element='select'][pseudo_selector='normal'], [element='select']:not([pseudo_selector]), [element='textarea'][pseudo_selector='normal'], [element='textarea']:not([pseudo_selector]), [element='label'][pseudo_selector='normal'], [element='label']:not([pseudo_selector]), [element='button'][pseudo_selector='normal'], [element='button']:not([pseudo_selector])`).forEach(thisElement => {
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
         thisElement.appendChild(foreignObject);
@@ -285,7 +285,7 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
       form768.closest("svg").style.display = 'none';
 
       // Select all children of form576 with the "element" attribute set to inputs, select, textarea, label, button
-      form576.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+      form576.querySelectorAll(`[element='input'][pseudo_selector='normal'], [element='input']:not([pseudo_selector]), [element='select'][pseudo_selector='normal'], [element='select']:not([pseudo_selector]), [element='textarea'][pseudo_selector='normal'], [element='textarea']:not([pseudo_selector]), [element='label'][pseudo_selector='normal'], [element='label']:not([pseudo_selector]), [element='button'][pseudo_selector='normal'], [element='button']:not([pseudo_selector])`).forEach(thisElement => {
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
         thisElement.closest("g").appendChild(foreignObject);
@@ -488,6 +488,37 @@ function formElementHover(){
       list.addEventListener("mouseleave", () => {
         list.insertBefore(normalElement, lastItemWithId);
         list.insertBefore(pseudoElement, lastItemWithId);
+      });
+    }
+    else{
+      console.log("Either normal or pseudo element is missing..", normalElement, pseudoElement);
+    }
+  });
+}
+
+document.querySelectorAll(".element_container").forEach((list, n)=>{
+    console.log(list.querySelector("input, select, textarea"));
+});
+
+function formElementActive(){
+  document.querySelectorAll(".element_container").forEach((list, n)=>{
+    // const list = document.getElementById("list");
+    const formElement = list.querySelector("input, select, textarea");
+    console.log("list: ", list, "\nformElement: ", formElement);
+    const normalElement = list.querySelector("[pseudo_selector=normal");
+    const pseudoElement = list.querySelector("[pseudo_selector=active]");
+    if(normalElement && pseudoElement && formElement){
+      console.log("Both normalElement and pseudoElement are discovered: ", normalElement, pseudoElement);
+      formElement.addEventListener("focus", () => {
+        console.log("The element activated is: ", formElement);
+        list.insertBefore(pseudoElement, formElement.closest("foreignObject"));
+        list.insertBefore(normalElement, pseudoElement);
+      });
+
+      formElement.addEventListener("blur", () => {
+        console.log("The element de-activated is: ", formElement);
+        list.insertBefore(normalElement, formElement.closest("foreignObject"));
+        list.insertBefore(pseudoElement, normalElement);
       });
     }
     else{
