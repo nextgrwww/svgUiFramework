@@ -37,7 +37,8 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
 
       // Select all children of form1200 with the "element" attribute set to inputs, select, textarea, label, button
       console.log("form1200: ", form1200);
-      form1200.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+      // form1200.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
+      form1200.querySelectorAll(`[element='input'][pseudo_selector='normal'], [element='input']:not([pseudo_selector]), [element='select'][pseudo_selector='normal'], [element='select']:not([pseudo_selector]), [element='textarea'][pseudo_selector='normal'], [element='textarea']:not([pseudo_selector]), [element='label'][pseudo_selector='normal'], [element='label']:not([pseudo_selector]), [element='button'][pseudo_selector='normal'], [element='button']:not([pseudo_selector])`).forEach(thisElement => {
 
         // Append each thisElement item with a foreignObject element
         const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
@@ -470,47 +471,21 @@ function clearThis(target){
 }
 
 
-
-// // Get all the elements with attribute "pseudo_selector" inside the <g> tag
-// const elements = document.querySelectorAll("g [pseudo_selector]");
-
-// // Attach event listeners to each element
-// elements.forEach((element) => {
-//   element.addEventListener("mouseenter", () => {
-//     // When mouse hovers over the "hover" element, bring it forward
-//     if (element.getAttribute("pseudo_selector") === "hover") {
-//       element.parentNode.appendChild(element);
-//         console.log("Element hovered");
-//     }
-//   });
-
-//   element.addEventListener("mouseleave", () => {
-//     // When the mouse is not hovering over the "hover" element, bring the "normal" element forward
-//     if (element.getAttribute("pseudo_selector") === "normal") {
-//       element.parentNode.appendChild(element);
-//     }
-//   });
-// });
-
-function formEventHandler(pseudoSelector){
+function formElementHover(){
   document.querySelectorAll(".element_container").forEach((list, n)=>{
 
     // const list = document.getElementById("list");
     const elementsWithId = list.querySelectorAll("[element_id]");
     const lastItemWithId = elementsWithId[elementsWithId.length-1];
-    console.log("elementsWithId: ", elementsWithId);
     const normalElement = list.querySelector("[pseudo_selector=normal");
-    const pseudoElement = list.querySelector(`[pseudo_selector=${pseudoSelector}]`);
+    const pseudoElement = list.querySelector(`[pseudo_selector=hover]`);
     if(normalElement && pseudoElement){
-      console.log("Both normalElement & pseudoElement found. Going to add add event listeners");
       list.addEventListener("mouseenter", () => {
-        console.log("hovered over...");
         list.insertBefore(pseudoElement, lastItemWithId);
         list.insertBefore(normalElement, pseudoElement);
       });
 
       list.addEventListener("mouseleave", () => {
-        console.log("hovered out...");
         list.insertBefore(normalElement, lastItemWithId);
         list.insertBefore(pseudoElement, lastItemWithId);
       });

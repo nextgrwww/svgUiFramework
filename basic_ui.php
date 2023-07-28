@@ -8,6 +8,9 @@
 		[element_type=submit], [element_type=reset]{
 			cursor: pointer;
 		}
+		input{
+			background-color: transparent;
+		}
 	</style>
 </head>
 <body>
@@ -18,8 +21,9 @@
 	<?php include("testform_768.svg"); ?>
 	<?php include("testform_576.svg"); ?>
 	<script>
-		// formToSvg("testform1200");
+		formToSvg("testform1200");
 		// validateNSubmit("testform1200");
+		formEventHandler('hover');
 	</script>
 	<?php var_dump($_POST); ?>
 </body>
