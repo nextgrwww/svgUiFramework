@@ -468,3 +468,55 @@ function clearThis(target){
   var formId = target.closest('svg').querySelector('[formsvgid]').getAttribute('formsvgid');
   clearForm(formId);
 }
+
+
+
+// // Get all the elements with attribute "pseudo_selector" inside the <g> tag
+// const elements = document.querySelectorAll("g [pseudo_selector]");
+
+// // Attach event listeners to each element
+// elements.forEach((element) => {
+//   element.addEventListener("mouseenter", () => {
+//     // When mouse hovers over the "hover" element, bring it forward
+//     if (element.getAttribute("pseudo_selector") === "hover") {
+//       element.parentNode.appendChild(element);
+//         console.log("Element hovered");
+//     }
+//   });
+
+//   element.addEventListener("mouseleave", () => {
+//     // When the mouse is not hovering over the "hover" element, bring the "normal" element forward
+//     if (element.getAttribute("pseudo_selector") === "normal") {
+//       element.parentNode.appendChild(element);
+//     }
+//   });
+// });
+
+function formEventHandler(pseudoSelector){
+  document.querySelectorAll(".element_container").forEach((list, n)=>{
+
+    // const list = document.getElementById("list");
+    const elementsWithId = list.querySelectorAll("[element_id]");
+    const lastItemWithId = elementsWithId[elementsWithId.length-1];
+    console.log("elementsWithId: ", elementsWithId);
+    const normalElement = list.querySelector("[pseudo_selector=normal");
+    const pseudoElement = list.querySelector(`[pseudo_selector=${pseudoSelector}]`);
+    if(normalElement && pseudoElement){
+      console.log("Both normalElement & pseudoElement found. Going to add add event listeners");
+      list.addEventListener("mouseenter", () => {
+        console.log("hovered over...");
+        list.insertBefore(pseudoElement, lastItemWithId);
+        list.insertBefore(normalElement, pseudoElement);
+      });
+
+      list.addEventListener("mouseleave", () => {
+        console.log("hovered out...");
+        list.insertBefore(normalElement, lastItemWithId);
+        list.insertBefore(pseudoElement, lastItemWithId);
+      });
+    }
+    else{
+      console.log("Either normal or pseudo element is missing..", normalElement, pseudoElement);
+    }
+  });
+}
