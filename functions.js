@@ -485,14 +485,32 @@ function formElementHover(){
     if(normalElement && pseudoElement){
       list.addEventListener("mouseenter", () => {
         console.log("You just hovered over", list);
-        list.insertBefore(pseudoElement, lastItemWithId);
-        list.insertBefore(normalElement, pseudoElement);
+        console.log(list.children);
+        [...list.children].forEach((thisEl)=>{
+          if(thisEl != pseudoElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "FOREIGNOBJECT" && thisEl.getAttribute("element")!='label' && !(thisEl.tagName=='tspan' && thisEl.parentElement.getAttribute("element")=='label')){
+            console.log("Going to hide: \n", thisEl);
+            thisEl.style.opacity = "0";
+          }
+          else{
+            console.log("Going to show: \n", thisEl);
+            thisEl.style.opacity = "1";
+          }
+        });
       });
 
       list.addEventListener("mouseleave", () => {
         console.log("You just hovered out", list);
-        list.insertBefore(normalElement, lastItemWithId);
-        list.insertBefore(pseudoElement, normalElement);
+        console.log(list.children);
+        [...list.children].forEach((thisEl)=>{
+          if(thisEl != normalElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "FOREIGNOBJECT" && thisEl.getAttribute("element")!='label' && !(thisEl.tagName=='tspan' && thisEl.parentElement.getAttribute("element")=='label')){
+            console.log("Going to hide: \n", thisEl);
+            thisEl.style.opacity = "0";
+          }
+          else{
+            console.log("Going to show: \n", thisEl);
+            thisEl.style.opacity = "1";
+          }
+        });
       });
     }
     else{
@@ -501,9 +519,6 @@ function formElementHover(){
   });
 }
 
-document.querySelectorAll(".element_container").forEach((list, n)=>{
-    console.log(list.querySelector("input, select, textarea"));
-});
 
 function formElementActive(){
   document.querySelectorAll(".element_container").forEach((list, n)=>{
