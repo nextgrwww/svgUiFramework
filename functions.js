@@ -484,30 +484,22 @@ function formElementHover(){
     console.log("lastItemWithId", lastItemWithId);
     if(normalElement && pseudoElement){
       list.addEventListener("mouseenter", () => {
-        console.log("You just hovered over", list);
-        console.log(list.children);
         [...list.children].forEach((thisEl)=>{
-          if(thisEl != pseudoElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "FOREIGNOBJECT" && thisEl.getAttribute("element")!='label' && !(thisEl.tagName=='tspan' && thisEl.parentElement.getAttribute("element")=='label')){
-            console.log("Going to hide: \n", thisEl);
+          if(thisEl != pseudoElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "foreignObject" && thisEl.getAttribute("element")!='label' && !(thisEl.tagName=='tspan' && thisEl.parentElement.getAttribute("element")=='label')){
             thisEl.style.opacity = "0";
           }
           else{
-            console.log("Going to show: \n", thisEl);
             thisEl.style.opacity = "1";
           }
         });
       });
 
       list.addEventListener("mouseleave", () => {
-        console.log("You just hovered out", list);
-        console.log(list.children);
         [...list.children].forEach((thisEl)=>{
-          if(thisEl != normalElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "FOREIGNOBJECT" && thisEl.getAttribute("element")!='label' && !(thisEl.tagName=='tspan' && thisEl.parentElement.getAttribute("element")=='label')){
-            console.log("Going to hide: \n", thisEl);
+          if(thisEl != normalElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "foreignObject" && thisEl.getAttribute("element")!='label' && !(thisEl.tagName=='tspan' && thisEl.parentElement.getAttribute("element")=='label')){
             thisEl.style.opacity = "0";
           }
           else{
-            console.log("Going to show: \n", thisEl);
             thisEl.style.opacity = "1";
           }
         });
@@ -530,16 +522,35 @@ function formElementActive(){
     if(normalElement && pseudoElement && formElement){
       console.log("Both normalElement and pseudoElement are discovered: ", normalElement, pseudoElement);
       formElement.addEventListener("focus", () => {
-        console.log("The element activated is: ", formElement);
-        list.insertBefore(pseudoElement, formElement.closest("foreignObject"));
-        list.insertBefore(normalElement, pseudoElement);
+        console.log("You just activated", list);
+        console.log(list.children);
+        [...list.children].forEach((thisEl)=>{
+          if(thisEl != formElement.closest("foreignObject") && thisEl != pseudoElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "foreignObject" && thisEl.getAttribute("element")!='label' && !(thisEl.tagName=='tspan' && thisEl.parentElement.getAttribute("element")=='label')){
+            console.log("Going to hide: \n", thisEl);
+            thisEl.style.opacity = "0";
+          }
+          else{
+            console.log("Going to show: \n", thisEl);
+            thisEl.style.opacity = "1";
+          }
+        });
       });
 
       formElement.addEventListener("blur", () => {
-        console.log("The element de-activated is: ", formElement);
-        list.insertBefore(normalElement, formElement.closest("foreignObject"));
-        list.insertBefore(pseudoElement, normalElement);
+        console.log("You just deactivated out", list);
+        console.log(list.children);
+        [...list.children].forEach((thisEl)=>{
+          if(thisEl != formElement.closest("foreignObject") && thisEl != normalElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "foreignObject" && thisEl.getAttribute("element")!='label' && !(thisEl.tagName=='tspan' && thisEl.parentElement.getAttribute("element")=='label')){
+            console.log("Going to hide: \n", thisEl);
+            thisEl.style.opacity = "0";
+          }
+          else{
+            console.log("Going to show: \n", thisEl);
+            thisEl.style.opacity = "1";
+          }
+        });
       });
+      /* --- */
     }
     else{
       console.log("Either normal or pseudo element is missing..", normalElement, pseudoElement);
