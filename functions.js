@@ -550,3 +550,61 @@ function formElementActive() {
         }
     });
 }
+
+
+function parseAndPrintContent(JSONContent) {
+  // Parse the JSON and put inside JSO variable
+  const JSO = JSON.parse(JSONContent);
+
+  // Select all the elements with "element" set to "div" and save to "divElements" variable
+  const divElements = document.querySelectorAll("[element='div']");
+
+  // Loop through divElements using .forEach(thisDiv, n)=>{} and do the following with each thisDiv:
+  divElements.forEach((thisDiv, n) => {
+    // Create a foreignElement and save in newForeignElement variable
+    const newForeignElement = document.createElement("foreignObject");
+
+    // Take the attribute values of height, width, x, y, and transform of thisDiv and apply these attributes to newForeignElement
+    newForeignElement.setAttribute("height", thisDiv.getAttribute("height"));
+    newForeignElement.setAttribute("width", thisDiv.getAttribute("width"));
+    newForeignElement.setAttribute("x", thisDiv.getAttribute("x"));
+    newForeignElement.setAttribute("y", thisDiv.getAttribute("y"));
+    newForeignElement.setAttribute("transform", thisDiv.getAttribute("transform"));
+
+    // Create a new div element and store it in newDiv variable with CSS height 100%, CSS width 100%
+    const newDiv = document.createElement("div");
+    newDiv.style.height = "100%";
+    newDiv.style.width = "100%";
+
+    // Take any attribute of thisDiv that starts with "element_", remove the "element_" prefix of that attribute name,
+    // and then apply the resultant attribute name as well as the value of that attribute to the newDiv element
+    const attributes = thisDiv.attributes;
+    for (let i = 0; i < attributes.length; i++) {
+      const attribute = attributes[i];
+      if (attribute.name.startsWith("element_")) {
+        const attributeName = attribute.name.replace("element_", "");
+        newDiv.setAttribute(attributeName, attribute.value);
+      }
+    }
+
+    // Append the newDiv inside the newForeignElement
+    newForeignElement.appendChild(newDiv);
+
+    // Append the newForeignElement after the "thisDiv" element
+    thisDiv.parentNode.insertBefore(newForeignElement, thisDiv.nextSibling);
+  });
+
+  // Loop through the JSO array using .forEach((thisContent)=>{}) method and for each thisContent object and do the following:
+  JSO.forEach((thisContent) => {
+    // Check the "id" property of thisContent object and store in "elementId" variable
+    const elementId = thisContent.id;
+
+    // Select element inside the page with the id same as the value of elementId variable
+    const element = document.getElementById(elementId);
+
+    // Put the content property of the object whose id is same as "element_id" attribute value of element
+    if (element) {
+      element.textContent = thisContent.content;
+    }
+  });
+}
