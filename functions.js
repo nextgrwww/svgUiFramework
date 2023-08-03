@@ -551,6 +551,59 @@ function formElementActive() {
     });
 }
 
+function formElementClick() {
+    document.querySelectorAll(".element_container").forEach((list, n) => {
+        var formElement = null;
+        // const list = document.getElementById("list");
+        if(list.querySelector('[element_type=button') || list.querySelector('[element_type=submit') || list.querySelector('[element_type=reset')){
+            formElement = list.querySelector("[pseudo_selector=opaque]");
+            // console.log("Method 1 \nlist: ", list, "\nformElement: ", formElement);
+        }
+        else{
+            formElement = list.querySelector("input:not(:is(button, reset, submit)), select, textarea");
+            // console.log("Method 2 \nlist: ", list, "\nformElement: ", formElement);
+        }
+        const normalElement = list.querySelector("[pseudo_selector=normal");
+        const hoverElement = list.querySelector("[pseudo_selector=hover");
+        const pseudoElement = list.querySelector("[pseudo_selector=click]");
+        if (normalElement && pseudoElement && formElement && hoverElement) {
+            // console.log("Both normalElement and pseudoElement are discovered: ", normalElement, pseudoElement);
+            formElement.addEventListener("mousedown", () => {
+                // console.log("You just clicked down", list);
+                list.classList.add("clicked_container");
+                // console.log(list.children);
+                [...list.children].forEach((thisEl) => {
+                    if (thisEl != formElement.closest("foreignObject") && thisEl != pseudoElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "foreignObject" && thisEl.getAttribute("element") != 'label' && !(thisEl.tagName == 'tspan' && thisEl.parentElement.getAttribute("element") == 'label')) {
+                        // console.log("Going to hide: \n", thisEl);
+                        thisEl.style.opacity = "0";
+                    } else {
+                        // console.log("Going to show: \n", thisEl);
+                        thisEl.style.opacity = "1";
+                    }
+                });
+            });
+
+            formElement.addEventListener("mouseup", () => {
+                // console.log("You just released mouse", list);
+                list.classList.remove("clicked_container");
+                // console.log(list.children);
+                [...list.children].forEach((thisEl) => {
+                    if (thisEl != formElement.closest("foreignObject") && thisEl != hoverElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "foreignObject" && thisEl.getAttribute("element") != 'label' && !(thisEl.tagName == 'tspan' && thisEl.parentElement.getAttribute("element") == 'label')) {
+                        // console.log("Going to hide: \n", thisEl);
+                        thisEl.style.opacity = "0";
+                    } else {
+                        // console.log("Going to show: \n", thisEl);
+                        thisEl.style.opacity = "1";
+                    }
+                });
+            });
+            /* --- */
+        } else {
+            console.log("Either normal or pseudo element is missing..", normalElement, pseudoElement);
+        }
+    });
+}
+
 
 function parseAndPrintContent(JSONContent) {
   // Parse the JSON and put inside JSO variable

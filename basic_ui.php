@@ -25,6 +25,7 @@
 		// validateNSubmit("testform1200");
 		formElementHover();
 		formElementActive();
+		formElementClick();
 	</script>
 	<?php var_dump($_POST); ?>
 </body>
