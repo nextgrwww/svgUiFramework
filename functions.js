@@ -1,12 +1,12 @@
 function formToSvg(formsvgid) {
-    console.log("formToSvg() function ran with formsvgid: " + formsvgid);
+    // console.log("formToSvg() function ran with formsvgid: " + formsvgid);
     // Select SVG group elements with specific attributes and store them in variables
     const form1200 = document.querySelector(`g[formsvgid=${formsvgid}][class=w1200]`);
     const form992 = document.querySelector(`g[formsvgid=${formsvgid}][class=w992]`);
     const form768 = document.querySelector(`g[formsvgid=${formsvgid}][class=w768]`);
     const form576 = document.querySelector(`g[formsvgid=${formsvgid}][class=w576]`);
 
-    console.log(form1200, form992, form768, form576);
+    // console.log(form1200, form992, form768, form576);
 
     // Initial render based on the current browser window width
     const currentResolution = window.innerWidth;
@@ -36,7 +36,7 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
             form576.closest("svg").style.display = 'none';
 
             // Select all children of form1200 with the "element" attribute set to inputs, select, textarea, label, button
-            console.log("form1200: ", form1200);
+            // console.log("form1200: ", form1200);
             // form1200.querySelectorAll('[element="input"], [element="select"], [element="textarea"], [element="label"], [element="button"]').forEach(thisElement => {
             form1200.querySelectorAll(`[element='input'][pseudo_selector='normal'], [element='input']:not([pseudo_selector]), [element='select'][pseudo_selector='normal'], [element='select']:not([pseudo_selector]), [element='textarea'][pseudo_selector='normal'], [element='textarea']:not([pseudo_selector]), [element='label'][pseudo_selector='normal'], [element='label']:not([pseudo_selector]), [element='button'][pseudo_selector='normal'], [element='button']:not([pseudo_selector])`).forEach(thisElement => {
 
@@ -46,19 +46,19 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
                 // form1200.appendChild(foreignObject);
 
                 // Set the x, y, width, and height attributes for foreignObject same as thisElement
-                console.log("thisElement: ", thisElement);
+                // console.log("thisElement: ", thisElement);
 
-                console.log("thisElement.x: " + thisElement.getAttribute("x"));
+                // console.log("thisElement.x: " + thisElement.getAttribute("x"));
                 foreignObject.setAttribute('x', thisElement.getAttribute('x'));
 
-                console.log("thisElement.y: " + thisElement.getAttribute("y"));
+                // console.log("thisElement.y: " + thisElement.getAttribute("y"));
                 foreignObject.setAttribute('y', thisElement.getAttribute('y'));
 
-                console.log("thisElement.width: " + thisElement.getAttribute("width"));
+                // console.log("thisElement.width: " + thisElement.getAttribute("width"));
                 if (thisElement.getAttribute('width')) foreignObject.setAttribute('width', thisElement.getAttribute('width'));
                 else foreignObject.setAttribute('width', thisElement.getBoundingClientRect().width)
 
-                console.log("thisElement.height: " + thisElement.getAttribute("height"));
+                // console.log("thisElement.height: " + thisElement.getAttribute("height"));
                 if (thisElement.getAttribute('height')) foreignObject.setAttribute('height', thisElement.getAttribute('height'));
                 else foreignObject.setAttribute('height', thisElement.getBoundingClientRect().height);
 
@@ -132,19 +132,19 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
                 // form992.appendChild(foreignObject);
 
                 // Set the x, y, width, and height attributes for foreignObject same as thisElement
-                console.log("thisElement: ", thisElement);
+                // console.log("thisElement: ", thisElement);
 
-                console.log("thisElement.x: " + thisElement.getAttribute("x"));
+                // console.log("thisElement.x: " + thisElement.getAttribute("x"));
                 foreignObject.setAttribute('x', thisElement.getAttribute('x'));
 
-                console.log("thisElement.y: " + thisElement.getAttribute("y"));
+                // console.log("thisElement.y: " + thisElement.getAttribute("y"));
                 foreignObject.setAttribute('y', thisElement.getAttribute('y'));
 
-                console.log("thisElement.width: " + thisElement.getAttribute("width"));
+                // console.log("thisElement.width: " + thisElement.getAttribute("width"));
                 if (thisElement.getAttribute('width')) foreignObject.setAttribute('width', thisElement.getAttribute('width'));
                 else foreignObject.setAttribute('width', thisElement.getBoundingClientRect().width)
 
-                console.log("thisElement.height: " + thisElement.getAttribute("height"));
+                // console.log("thisElement.height: " + thisElement.getAttribute("height"));
                 if (thisElement.getAttribute('height')) foreignObject.setAttribute('height', thisElement.getAttribute('height'));
                 else foreignObject.setAttribute('height', thisElement.getBoundingClientRect().height);
 
@@ -210,19 +210,19 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
                 // form768.appendChild(foreignObject);
 
                 // Set the x, y, width, and height attributes for foreignObject same as thisElement
-                console.log("thisElement: ", thisElement);
+                // console.log("thisElement: ", thisElement);
 
-                console.log("thisElement.x: " + thisElement.getAttribute("x"));
+                // console.log("thisElement.x: " + thisElement.getAttribute("x"));
                 foreignObject.setAttribute('x', thisElement.getAttribute('x'));
 
-                console.log("thisElement.y: " + thisElement.getAttribute("y"));
+                // console.log("thisElement.y: " + thisElement.getAttribute("y"));
                 foreignObject.setAttribute('y', thisElement.getAttribute('y'));
 
-                console.log("thisElement.width: " + thisElement.getAttribute("width"));
+                // console.log("thisElement.width: " + thisElement.getAttribute("width"));
                 if (thisElement.getAttribute('width')) foreignObject.setAttribute('width', thisElement.getAttribute('width'));
                 else foreignObject.setAttribute('width', thisElement.getBoundingClientRect().width)
 
-                console.log("thisElement.height: " + thisElement.getAttribute("height"));
+                // console.log("thisElement.height: " + thisElement.getAttribute("height"));
                 if (thisElement.getAttribute('height')) foreignObject.setAttribute('height', thisElement.getAttribute('height'));
                 else foreignObject.setAttribute('height', thisElement.getBoundingClientRect().height);
 
@@ -288,19 +288,19 @@ function renderForm(currentResolution, form1200, form992, form768, form576) {
                 // form576.appendChild(foreignObject);
 
                 // Set the x, y, width, and height attributes for foreignObject same as thisElement
-                console.log("thisElement: ", thisElement);
+                // console.log("thisElement: ", thisElement);
 
-                console.log("thisElement.x: " + thisElement.getAttribute("x"));
+                // console.log("thisElement.x: " + thisElement.getAttribute("x"));
                 foreignObject.setAttribute('x', thisElement.getAttribute('x'));
 
-                console.log("thisElement.y: " + thisElement.getAttribute("y"));
+                // console.log("thisElement.y: " + thisElement.getAttribute("y"));
                 foreignObject.setAttribute('y', thisElement.getAttribute('y'));
 
-                console.log("thisElement.width: " + thisElement.getAttribute("width"));
+                // console.log("thisElement.width: " + thisElement.getAttribute("width"));
                 if (thisElement.getAttribute('width')) foreignObject.setAttribute('width', thisElement.getAttribute('width'));
                 else foreignObject.setAttribute('width', thisElement.getBoundingClientRect().width)
 
-                console.log("thisElement.height: " + thisElement.getAttribute("height"));
+                // console.log("thisElement.height: " + thisElement.getAttribute("height"));
                 if (thisElement.getAttribute('height')) foreignObject.setAttribute('height', thisElement.getAttribute('height'));
                 else foreignObject.setAttribute('height', thisElement.getBoundingClientRect().height);
 
@@ -398,7 +398,7 @@ function validateNSubmit(formId, dynamic) {
     xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
             try {
-                console.log(xhr.responseText);
+                // console.log(xhr.responseText);
                 const JSO = JSON.parse(xhr.responseText);
                 if (JSO.return_message) {
                     alert(JSO.return_message);
@@ -420,7 +420,7 @@ function validateNSubmit(formId, dynamic) {
 }
 
 function validateNSubmitThis(target) {
-    console.log(target);
+    // console.log(target);
     var formId = target.closest('svg').querySelector('[formsvgid]').getAttribute('formsvgid');
     validateNSubmit(formId);
 }
@@ -458,7 +458,7 @@ function clearForm(formsvgid) {
 
 
 function clearThis(target) {
-    console.log(target);
+    // console.log(target);
     var formId = target.closest('svg').querySelector('[formsvgid]').getAttribute('formsvgid');
     clearForm(formId);
 }
@@ -472,9 +472,9 @@ function formElementHover() {
         const lastItemWithId = elementsWithId[elementsWithId.length - 1];
         const normalElement = list.querySelector("[pseudo_selector=normal");
         const pseudoElement = list.querySelector(`[pseudo_selector=hover]`);
-        console.log("normalElement", normalElement);
-        console.log("pseudoElement", pseudoElement);
-        console.log("lastItemWithId", lastItemWithId);
+        // console.log("normalElement", normalElement);
+        // console.log("pseudoElement", pseudoElement);
+        // console.log("lastItemWithId", lastItemWithId);
         if (normalElement && pseudoElement) {
             list.addEventListener("mouseenter", () => {
               if(!(list.classList.contains("active_container"))){
@@ -510,36 +510,36 @@ function formElementActive() {
     document.querySelectorAll(".element_container").forEach((list, n) => {
         // const list = document.getElementById("list");
         const formElement = list.querySelector("input, select, textarea");
-        console.log("list: ", list, "\nformElement: ", formElement);
+        // console.log("list: ", list, "\nformElement: ", formElement);
         const normalElement = list.querySelector("[pseudo_selector=normal");
         const pseudoElement = list.querySelector("[pseudo_selector=active]");
         if (normalElement && pseudoElement && formElement) {
-            console.log("Both normalElement and pseudoElement are discovered: ", normalElement, pseudoElement);
+            // console.log("Both normalElement and pseudoElement are discovered: ", normalElement, pseudoElement);
             formElement.addEventListener("focus", () => {
-                console.log("You just activated", list);
+                // console.log("You just activated", list);
                 list.classList.add("active_container");
-                console.log(list.children);
+                // console.log(list.children);
                 [...list.children].forEach((thisEl) => {
                     if (thisEl != formElement.closest("foreignObject") && thisEl != pseudoElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "foreignObject" && thisEl.getAttribute("element") != 'label' && !(thisEl.tagName == 'tspan' && thisEl.parentElement.getAttribute("element") == 'label')) {
-                        console.log("Going to hide: \n", thisEl);
+                        // console.log("Going to hide: \n", thisEl);
                         thisEl.style.opacity = "0";
                     } else {
-                        console.log("Going to show: \n", thisEl);
+                        // console.log("Going to show: \n", thisEl);
                         thisEl.style.opacity = "1";
                     }
                 });
             });
 
             formElement.addEventListener("blur", () => {
-                console.log("You just deactivated out", list);
+                // console.log("You just deactivated out", list);
                 list.classList.remove("active_container");
-                console.log(list.children);
+                // console.log(list.children);
                 [...list.children].forEach((thisEl) => {
                     if (thisEl != formElement.closest("foreignObject") && thisEl != normalElement && thisEl.tagName != "INPUT" && thisEl.tagName != "SELECT" && thisEl.tagName != "TEXTAREA" && thisEl.tagName != "LABEL" && thisEl.tagName != "foreignObject" && thisEl.getAttribute("element") != 'label' && !(thisEl.tagName == 'tspan' && thisEl.parentElement.getAttribute("element") == 'label')) {
-                        console.log("Going to hide: \n", thisEl);
+                        // console.log("Going to hide: \n", thisEl);
                         thisEl.style.opacity = "0";
                     } else {
-                        console.log("Going to show: \n", thisEl);
+                        // console.log("Going to show: \n", thisEl);
                         thisEl.style.opacity = "1";
                     }
                 });
@@ -615,7 +615,16 @@ function parseAndPrintContent(JSONContent) {
   // Loop through divElements using .forEach(thisDiv, n)=>{} and do the following with each thisDiv:
   divElements.forEach((thisDiv, n) => {
     // Create a foreignElement and save in newForeignElement variable
-    const newForeignElement = document.createElement("foreignObject");
+    // const newForeignElement = document.createElement("foreignObject");
+    // const xmlNamespace = "http://www.w3.org/1999/xhtml"; // XML namespace for XHTML elements
+    const xmlNamespace = "http://www.w3.org/2000/svg";
+
+    // Create a new XML document
+    const xmlDoc = document.implementation.createDocument(xmlNamespace, "", null);
+
+    // Create an element with a specific tag name while preserving the case
+    const tagName = "foreignObject";
+    const newForeignElement = xmlDoc.createElementNS(xmlNamespace, tagName);
 
     // Take the attribute values of height, width, x, y, and transform of thisDiv and apply these attributes to newForeignElement
     newForeignElement.setAttribute("height", thisDiv.getAttribute("height"));
@@ -657,7 +666,9 @@ function parseAndPrintContent(JSONContent) {
 
     // Put the content property of the object whose id is same as "element_id" attribute value of element
     if (element) {
-      element.textContent = thisContent.content;
+      console.log("Element captured: ", element);
+      console.log("Content captured: ", thisContent.content);
+      element.innerHTML = thisContent.content;
     }
   });
 }

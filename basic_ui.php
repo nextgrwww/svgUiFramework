@@ -21,6 +21,10 @@
 	<?php include("testform_768.svg"); ?>
 	<?php include("testform_576.svg"); ?>
 	<script>
+		var JSONData = `[
+			{"id": "firstPara", "content": "<p'>A quick brown fox jumps over the lazy dog. </p>"}
+		]`;
+		parseAndPrintContent(JSONData);
 		formToSvg("testform1200");
 		// validateNSubmit("testform1200");
 		formElementHover();
