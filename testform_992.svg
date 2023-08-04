@@ -25,15 +25,15 @@
      inkscape:document-units="px"
      showgrid="false"
      units="px"
-     inkscape:zoom="0.42333333"
-     inkscape:cx="600"
-     inkscape:cy="600"
+     inkscape:zoom="0.84666666"
+     inkscape:cx="357.87402"
+     inkscape:cy="307.08662"
      inkscape:window-width="1366"
      inkscape:window-height="708"
      inkscape:window-x="0"
-     inkscape:window-y="27"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g224"
+     inkscape:current-layer="layer1"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1" />
   <defs
@@ -132,5 +132,16 @@
            element_id="lastname" />
       </g>
     </g>
+    <rect
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       id="rect201"
+       width="382.37729"
+       height="211.77719"
+       x="87.630539"
+       y="395.69064"
+       rx="0.25999999"
+       ry="0.25999999"
+       element="div"
+       element_id="firstPara" />
   </g>
 </svg>

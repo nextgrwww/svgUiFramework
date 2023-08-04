@@ -9,7 +9,12 @@
 * ~~Write a function to checkNSubmit() to validate the form, gather the values and then submit~~
 * ~~Check validation logic~~
 * ~~Add functionality to trigger validateNSubmit() function when an element with element_type set to submit~~
-* Fix duplicate form elements in dynamically generated form
+* ~~Fix duplicate form elements in dynamically generated form~~
 * Add functionality to trigger clearForm() function when an element with element_type set to reset
 * Fix handling of resize
-* Add event handler for form elements
+* Add event handlers for form elements
+	* ~~Add hover event~~
+	* ~~Add click event~~
+	* ~~Add active event~~
+	* Add checked event
+* Check and fix all the above functionalities across all breakpoints

@@ -14,3 +14,33 @@
 * A CSS rule should be written for all form element groups that have "invalid" class
 * The submit button should have an attribute "element_type" set to "submit"
 * The reset button should have an attribute "element_type" set to "reset"
+
+---
+
+## How to setup content div
+* Add a rectangle with element_type=div 
+* Add element_id as id we wish to give (required)
+* Add any other attributes prepended by the "element_" string
+* Create a variable with JSON string in the following format: `[{"id": "elementID", "content": "Some content"}, {"id": "anotherID", "content": "Some more content"}]`;
+* Add parseAndPrintContent(JSONData) function where JSONData is string containing content of the element in the format above
+
+---
+
+## How to add hover effect
+* Give the parent element class "element_container"
+* Add the attribute pseudo_selector with value "normal" to the element shape
+* Duplicate the element with pseudo_selector value changed to "hover" and id set to same as normal shape with "hover" appended to it
+
+---
+
+## How to add click effect
+* Give the parent element class "element_container"
+* Add the attribute pseudo_selector with value "normal" to the element shape
+* Duplicate the element with pseudo_selector value changed to "click" and id set to same as normal shape with "click" appended to it
+
+---
+
+## How to add active/focus effect
+* Give the parent element class "element_container"
+* Add the attribute pseudo_selector with value "normal" to the element shape
+* Duplicate the element with pseudo_selector value changed to "active" and id set to same as normal shape with "active" appended to it
